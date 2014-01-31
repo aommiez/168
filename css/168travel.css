@@ -1,0 +1,54 @@
+@import url('reset.css');
+
+.body {
+    background-image:url("../images/bg.png");
+}
+
+.container {
+    width: 960px;
+    position: relative;
+}
+
+#topMenu {
+    background-image:url("../images/bgTopMenu.png");
+    height: 56px;
+    line-height: 56px;
+    background-repeat:repeat-x;
+    width: 960px;
+    text-align: right;
+    /*padding-right: 30px;*/
+}
+#topMenu ul li {
+    list-style: none;
+    display: inline-block;
+    font-size: 22px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-transform: uppercase;
+    width: 80px;
+    padding-right: 14px;
+}
+
+#topMenu ul li {
+    border-right: 1px solid lightgrey;
+}
+
+#topMenu ul li:last-child {
+    border-right: 0px solid lightgrey;
+}
+
+#leftMenu {
+    float: left;
+    width: 274px;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+    box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+    padding: 18px;
+}
+
+#leftMenu ul li {
+    padding: 4px;
+}
+#leftMenu ul li img {
+    width: 24px;
+    padding-right: 6px;
+}
