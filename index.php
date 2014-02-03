@@ -98,9 +98,9 @@
         <div id="leftMenu">
             <ul>
                 <li><img src="images/MapPin.png" />39 sadssad sads ad asd adsa da</li>
-                <li><img src="images/TelIcon.png" />2</li>
-                <li><img src="images/EmailIcon.png" />3</li>
-                <li><img src="images/WebSiteIcon.png" />4</li>
+                <li><img src="images/TelIcon.png" />087-123-5678</li>
+                <li><img src="images/EmailIcon.png" />info@abc.com</li>
+                <li><img src="images/WebSiteIcon.png" />www.google.co.th</li>
             </ul>
         </div>
         <div id="mainContent">
