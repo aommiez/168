@@ -126,15 +126,127 @@
                 </select
             </div>
             <div class="rightBlock">
-                <ul>
-                    <li>test 1</li>
-                    <li>test 2</li>
-                    <li>test 3</li>
-                    <li>test 4</li>
-                    <li>test 5</li>
-                    <li>test 6</li>
-                    <li>test 7</li>
-                </ul>
+
+                <div class="offer offer-default">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            A default offer
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+                <div class="offer offer-success">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            A success offer
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+
+                <div class="offer offer-radius offer-primary">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            A primary-radius
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+
+                <div class="offer offer-info">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            An info offer
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+
+                <div class="offer offer-warning">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            A warning offer
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+
+                <div class="offer offer-radius offer-danger">
+                    <div class="shape">
+                        <div class="shape-text">
+                            top
+                        </div>
+                    </div>
+                    <div>
+                        <img src="images/EmailIcon.png" class="imgoffer">
+                    </div>
+                    <div class="offer-content">
+                        <h3 class="lead">
+                            A danger-radius
+                        </h3>
+                        <p>
+                            And a little description.
+                            <br> and so one
+                        </p>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
