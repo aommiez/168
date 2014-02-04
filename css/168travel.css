@@ -7,6 +7,7 @@
 .container {
     width: 960px;
     position: relative;
+    padding-right:0px;
 }
 
 #topMenu {
@@ -64,4 +65,27 @@
 }
 .muted {
     color: #999999;
+}
+#mainContent {
+    float: left;
+    width: 656px;
+    padding-left: 20px;
+}
+.rightBlock {
+    /*padding-top: 20px;*/
+}
+.showdowBox {
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+    box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.40);
+}
+.rightBlockTop {
+    /*border-bottom: 1px dashed darkgrey;*/
+    width: 654px;
+    padding-top: 10px;
+}
+.rightBlock ul li {
+    border: 1px solid darkgray;
+    padding: 5px;
+    margin: 5px;
 }
