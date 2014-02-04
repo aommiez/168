@@ -96,15 +96,36 @@
     </div>
     <div>
         <div id="leftMenu">
+        <div class="leftBlock">
             <ul>
-                <li><img src="images/MapPin.png" />39 sadssad sads ad asd adsa da</li>
+                <li><img src="images/MapPin.png" />39 sadssad sads ad asd adsa</li>
                 <li><img src="images/TelIcon.png" />087-123-5678</li>
                 <li><img src="images/EmailIcon.png" />info@abc.com</li>
                 <li><img src="images/WebSiteIcon.png" />www.google.co.th</li>
             </ul>
         </div>
+        <div class="leftBlock" style="margin-top: 20px;margin-bottom: 20px;">
+            <ul>
+                <li>blog 123</li>
+                <li>blog 123</li>
+                <li>blog 123</li>
+                <li>blog 123</li>
+            </ul>
+        </div>
+        </div>
         <div id="mainContent">
-            m
+            <div>
+                filter block
+            </div>
+            <div>
+                main content
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="footer">
+        <div class="container">
+            <p class="muted credit">Made by 168NorthTravel 2014 </p>
         </div>
     </div>
 
