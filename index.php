@@ -22,13 +22,35 @@
 <body>
 <div class="container">
     <div><img src="images/logobanner.png"/> </div>
-    <div id="topMenu">
-        <ul>
-            <li>Home</li>
-            <li>Menu1</li>
-            <li>Menu2</li>
-            <li>Menu3</li>
+    <div id="topMenu" class="navbar-collapse">
+        <ul class="nav navbar-nav pull-right">
+            <li><a href="">Home</a></li>
+            <li class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown">Menu2</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Menu2 - 1</a></li>
+                    <li><a href="#">Menu2 - 2</a></li>
+                    <li><a href="#">Menu2 - 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown">Menu3</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Menu3 - 1</a></li>
+                    <li><a href="#">Menu4 - 2</a></li>
+                    <li><a href="#">Menu5 - 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown">Menu4</a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Menu3 - 1</a></li>
+                    <li><a href="#">Menu4 - 2</a></li>
+                    <li><a href="#">Menu5 - 3</a></li>
+                </ul>
+            </li>
         </ul>
+        <div class="clearfix"></div>
     </div>
     <div>
         <div id="ei-slider" class="ei-slider">
