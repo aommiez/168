@@ -8,9 +8,9 @@
  */
 $db = new DB();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
+    $ar1 = array("updated_at"=> date("Y-m-d H:i:s"), "id"=> $_GET["id"]);
     $bp = array_merge($_POST, $ar1);
-    $rs = $db->query("insert into blog(title,author,content,created_at,updated_at) VALUES(:title,:author,:content,:created_at,:updated_at)", $bp);
+    $rs = $db->query("update blog SET title=:title,author=:author,content=:content,updated_at=:updated_at WHERE id=:id", $bp);
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
@@ -18,6 +18,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         exit();
     }
 }
+$item = $db->row("select * from blog WHERE id=:id", array("id"=> $_GET["id"]));
+if(!$item){
+    header("refresh:2; url=home.php?page=blog");
+    echo "Not found item";
+    exit();
+}
+$param = $item;
 ?>
 <form class="form-horizontal" method="post">
     <fieldset>
@@ -29,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div class="form-group">
             <label class="col-md-4 control-label" for="title">title</label>
             <div class="col-md-4">
-                <input id="title" name="title" type="text" placeholder="" class="form-control input-md" required="">
+                <input id="title" name="title" type="text" placeholder="" class="form-control input-md" required="" value="<?php echo $param["title"];?>">
 
             </div>
         </div>
@@ -38,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div class="form-group">
             <label class="col-md-4 control-label" for="author">author</label>
             <div class="col-md-4">
-                <input id="author" name="author" type="text" placeholder="" class="form-control input-md" required="">
+                <input id="author" name="author" type="text" placeholder="" class="form-control input-md" required="" value="<?php echo $param["author"];?>">
 
             </div>
         </div>
@@ -50,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 Upload Picture <img src="http://www.k0w.co/cms/assets/admin/images/icons/media.png"  style="cursor:pointer" class="picupload"
 
                                     href="uploads.php?fn=text_edit" /><br />
-                <textarea class="form-control" id="content" name="content"></textarea>
+                <textarea class="form-control" id="content" name="content"><?php echo $param["content"];?></textarea>
             </div>
         </div>
 

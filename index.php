@@ -1,3 +1,8 @@
+<?php
+include_once("class/Db.class.php");
+$db = new DB();
+$blogs = $db->query("SELECT * FROM blog");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,10 +137,9 @@
         </div>
         <div class="leftBlock" style="margin-top: 20px;margin-bottom: 20px;">
             <ul>
-                <li>blog 123</li>
-                <li>blog 123</li>
-                <li>blog 123</li>
-                <li>blog 123</li>
+                <?php foreach($blogs as $key => $value){?>
+                <li><a href="blog.php?id=<?php echo $value["id"];?>"><?php echo $value["title"];?></a></li>
+                <?php }?>
             </ul>
         </div>
         </div>

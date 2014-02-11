@@ -1,29 +1,42 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: Nuiz
- * Date: 10/2/2557
- * Time: 10:16 น.
- * To change this template use File | Settings | File Templates.
- */
 $db = new DB();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
+    $query = "insert into promotion(title,description,content,created_at,updated_at) VALUES(:title,:description,:content,:created_at,:updated_at)";
+    if(isset($_FILES["picture"]) && file_exists($_FILES["picture"]["tmp_name"])){
+        $name = $_FILES["file"]["name"];
+        $ext = end(explode(".", $name));
+
+        $pic_name = uniqid("pic_").".".$ext;
+        move_uploaded_file($_FILES["picture"]["tmp_name"], "../picture/".$pic_name);
+
+        $ar1["picture"] = $pic_name;
+        $query = "insert into promotion(title,description,content,created_at,updated_at,picture) VALUES(:title,:description,:content,:created_at,:updated_at,:picture)";
+    }
     $bp = array_merge($_POST, $ar1);
-    $rs = $db->query("insert into blog(title,author,content,created_at,updated_at) VALUES(:title,:author,:content,:created_at,:updated_at)", $bp);
+    $rs = $db->query($query, $bp);
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
-        header("location: home.php?page=blog");
+        header("location: home.php?page=promotion");
         exit();
     }
 }
 ?>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
     <fieldset>
 
         <!-- Form Name -->
         <legend>Create blog</legend>
+
+        <!-- File Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="filebutton">picture</label>
+            <div class="col-md-4">
+                <input id="picture" name="picture" class="input-file" type="file">
+            </div>
+        </div>
+
 
         <!-- Text input-->
         <div class="form-group">
@@ -36,10 +49,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="author">author</label>
+            <label class="col-md-4 control-label" for="author">description</label>
             <div class="col-md-4">
-                <input id="author" name="author" type="text" placeholder="" class="form-control input-md" required="">
-
+                <textarea id="description" name="description" class="form-control"></textarea>
             </div>
         </div>
 
