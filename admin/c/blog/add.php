@@ -8,6 +8,7 @@
  */
 $db = new DB();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
+
     $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
     $bp = array_merge($_POST, $ar1);
     $rs = $db->query("insert into blog(title,author,content,created_at,updated_at) VALUES(:title,:author,:content,:created_at,:updated_at)", $bp);

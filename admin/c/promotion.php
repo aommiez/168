@@ -17,6 +17,7 @@ $items = $db->query("SELECT * FROM promotion");
         <th></th>
         <th>title</th>
         <th>description</th>
+        <th>tags</th>
         <th>add date</th>
         <th>update date</th>
         <th></th>
@@ -27,6 +28,7 @@ $items = $db->query("SELECT * FROM promotion");
             <td><img src="../picture/<?php echo empty($value["picture"])? "default.jpg": $value["picture"];?>" style="max-height: 100px; max-width: 100px;"></td>
             <td><?php echo $value["title"];?></td>
             <td><?php echo $value["description"];?></td>
+            <td><?php echo $value["tags"];?></td>
             <td><?php echo $value["created_at"];?></td>
             <td><?php echo $value["updated_at"];?></td>
             <td><a href="home.php?page=promotion/edit&id=<?php echo $value["id"];?>">edit</a></td>

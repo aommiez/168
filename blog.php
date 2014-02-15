@@ -8,6 +8,7 @@ $item = $db->row("SELECT * FROM blog WHERE id=:id", array("id"=> $_GET["id"]));
 <html>
 <head>
     <title>Welcome to 198North.com</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +31,7 @@ $item = $db->row("SELECT * FROM blog WHERE id=:id", array("id"=> $_GET["id"]));
 <div><img src="images/logobanner.png"/> </div>
 <div id="topMenu" class="navbar-collapse">
     <ul class="nav navbar-nav pull-right">
-        <li><a href="">Home</a></li>
+        <li><a href="index.php">Home</a></li>
         <li class="dropdown active">
             <a class="dropdown-toggle" data-toggle="dropdown">Menu2</a>
             <ul class="dropdown-menu" role="menu">
@@ -144,10 +145,14 @@ $item = $db->row("SELECT * FROM blog WHERE id=:id", array("id"=> $_GET["id"]));
             </ul>
         </div>
     </div>
-    <div id="mainContent" >
-        <?php
-        echo $item["content"];
-        ?>
+    <div id="mainContent" style="padding-top: 20px;" >
+        <h1><?php echo $item["title"];?></h1>
+        <p style="color: #666666;">แก้ไขล่าสุด <small><?php echo date("d-m-Y H:i",strtotime($item["updated_at"]));?></small></p>
+        <div style="padding-top: 20px;">
+            <?php
+            echo $item["content"];
+            ?>
+        </div>
     </div>
 </div>
 <div class="clearfix"></div>

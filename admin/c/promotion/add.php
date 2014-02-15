@@ -1,8 +1,18 @@
 <?php
 $db = new DB();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    //unique tags
+    $tags = array_unique(explode(",", $_POST["tags"]));
+    $_POST["tags"] = implode(",", $tags);
+
     $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
-    $query = "insert into promotion(title,description,content,created_at,updated_at) VALUES(:title,:description,:content,:created_at,:updated_at)";
+    $query = "insert into promotion(title,description,content,created_at,updated_at,tags) VALUES(:title,:description,:content,:created_at,:updated_at,:tags)";
+
+    $bp = array_merge($_POST, $ar1);
+    $rs = $db->query($query, $bp);
+    $pro_id = $db->lastInsertId();
+
     if(isset($_FILES["picture"]) && file_exists($_FILES["picture"]["tmp_name"])){
         $name = $_FILES["file"]["name"];
         $ext = end(explode(".", $name));
@@ -11,10 +21,16 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         move_uploaded_file($_FILES["picture"]["tmp_name"], "../picture/".$pic_name);
 
         $ar1["picture"] = $pic_name;
-        $query = "insert into promotion(title,description,content,created_at,updated_at,picture) VALUES(:title,:description,:content,:created_at,:updated_at,:picture)";
+        $query = "update promotion set picture=:picture WHERE id=:id";
+        $db->query($query, array("picture"=> $pic_name, "id"=> $pro_id));
     }
-    $bp = array_merge($_POST, $ar1);
-    $rs = $db->query($query, $bp);
+
+    if(isset($_POST["tags"])){
+        $sql = "insert into tags(name,pro_id) VALUES(:name,:pro_id)";
+        foreach($tags as $key => $value){
+            $rs = $db->query($sql, array("name"=> $value, "pro_id"=> $pro_id));
+        }
+    }
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
@@ -63,6 +79,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
                                     href="uploads.php?fn=text_edit" /><br />
                 <textarea class="form-control" id="content" name="content"></textarea>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="author">tags</label>
+            <div class="col-md-4">
+                <input id="tags" name="tags" type="text" placeholder="" class="form-control input-md" required="">
             </div>
         </div>
 
@@ -138,5 +162,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             'transitionOut'		: 'none',
             'type'				: 'iframe'
         });
+
+        $('#tags').tagsInput();
     });
 </script>

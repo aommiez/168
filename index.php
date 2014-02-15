@@ -1,12 +1,22 @@
 <?php
 include_once("class/Db.class.php");
+include_once("class/INI.class.php");
+$gallery = INI::read("admin/gallery.ini");
 $db = new DB();
 $blogs = $db->query("SELECT * FROM blog");
+if(empty($_GET['tag'])){
+    $promotions = $db->query("SELECT * FROM promotion");
+}
+else {
+    $promotions = $db->query("SELECT * FROM promotion WHERE tags LIKE '%".$_GET["tag"]."%'");
+}
+$tags = $db->query("SELECT distinct(name) as name FROM tags");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Welcome to 198North.com</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +33,16 @@ $blogs = $db->query("SELECT * FROM blog");
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/jquery.eislideshow.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+
+    <script type="text/javascript" src="js/jquery.resizecrop-1.0.3.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -60,67 +80,21 @@ $blogs = $db->query("SELECT * FROM blog");
     <div>
         <div id="ei-slider" class="ei-slider">
             <ul class="ei-slider-large">
+                <?php foreach($gallery["img"] as $key=> $value){?>
                 <li>
-                    <img src="images/large/01.png" alt="image06"/>
+                    <img src="gallery/<?php echo $value["img"];?>" alt="<?php echo $key;?>"/>
                     <div class="ei-title">
-                        <h2>Passionate</h2>
-                        <h3>Seeker</h3>
+                        <h2><?php echo $value["title"];?></h2>
+                        <h3><?php echo $value["description"];?></h3>
                     </div>
                 </li>
-                <li>
-                    <img src="images/large/02.png" alt="image01" />
-                    <div class="ei-title">
-                        <h2>Creative</h2>
-                        <h3>Duet</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/03.png" alt="image02" />
-                    <div class="ei-title">
-                        <h2>Friendly</h2>
-                        <h3>Devil</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/04.png" alt="image03"/>
-                    <div class="ei-title">
-                        <h2>Tranquilent</h2>
-                        <h3>Compatriot</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-
+                <?php }?>
             </ul><!-- ei-slider-large -->
             <ul class="ei-slider-thumbs">
                 <li class="ei-slider-element">Current</li>
-
-                <li><a href="#">Slide 6</a><img src="images/thumbs/m01.png" alt="thumb06" /></li>
-                <li><a href="#">Slide 1</a><img src="images/thumbs/m02.png" alt="thumb01" /></li>
-                <li><a href="#">Slide 2</a><img src="images/thumbs/m03.png" alt="thumb02" /></li>
-                <li><a href="#">Slide 3</a><img src="images/thumbs/m04.png" alt="thumb03" /></li>
-                <li><a href="#">Slide 4</a><img src="images/thumbs/m05.png" alt="thumb04" /></li>
-                <li><a href="#">Slide 3</a><img src="images/thumbs/m04.png" alt="thumb03" /></li>
-                <li><a href="#">Slide 4</a><img src="images/thumbs/m05.png" alt="thumb04" /></li>
+                <?php foreach($gallery["img"] as $key=> $value){?>
+                <li><a href="#"><?php echo $value["title"];?></a><img src="gallery/<?php echo $value["img"];?>" alt="<?php echo $key;?>" /></li>
+                <?php }?>
 
             </ul><!-- ei-slider-thumbs -->
         </div><!-- ei-slider -->
@@ -146,133 +120,37 @@ $blogs = $db->query("SELECT * FROM blog");
         <div id="mainContent" >
             <div class="rightBlockTop">
                 <select class="selectpicker">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
+                    <option value="0">all</option>
+                    <?php foreach($tags as $key => $value){?>
+                    <option value="<?php echo $value["name"];?>" <?php if(@$_GET["tag"]==$value["name"]) echo "selected";?>><?php echo $value["name"];?></option>
+                    <?php }?>
                 </select
             </div>
             <div class="rightBlock">
-
+                <?php foreach($promotions as $key => $value){
+                    if(empty($value["picture"])){
+                        $value["picture"] = "default.jpg";
+                    }
+                    ?>
                 <div class="offer offer-default">
                     <div class="shape">
                         <div class="shape-text">
                             top
                         </div>
                     </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
+                    <div class="imgoffer">
+                        <img src="picture/<?php echo $value["picture"];?>">
                     </div>
                     <div class="offer-content">
                         <h3 class="lead">
-                            A default offer
+                            <a href="promotion.php?id=<?php echo $value["id"];?>"><?php echo $value["title"];?></a>
                         </h3>
                         <p>
-                            And a little description.
-                            <br> and so one
+                            <?php echo $value["description"];?>
                         </p>
                     </div>
                 </div>
-                <div class="offer offer-success">
-                    <div class="shape">
-                        <div class="shape-text">
-                            top
-                        </div>
-                    </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
-                    </div>
-                    <div class="offer-content">
-                        <h3 class="lead">
-                            A success offer
-                        </h3>
-                        <p>
-                            And a little description.
-                            <br> and so one
-                        </p>
-                    </div>
-                </div>
-
-                <div class="offer offer-radius offer-primary">
-                    <div class="shape">
-                        <div class="shape-text">
-                            top
-                        </div>
-                    </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
-                    </div>
-                    <div class="offer-content">
-                        <h3 class="lead">
-                            A primary-radius
-                        </h3>
-                        <p>
-                            And a little description.
-                            <br> and so one
-                        </p>
-                    </div>
-                </div>
-
-                <div class="offer offer-info">
-                    <div class="shape">
-                        <div class="shape-text">
-                            top
-                        </div>
-                    </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
-                    </div>
-                    <div class="offer-content">
-                        <h3 class="lead">
-                            An info offer
-                        </h3>
-                        <p>
-                            And a little description.
-                            <br> and so one
-                        </p>
-                    </div>
-                </div>
-
-                <div class="offer offer-warning">
-                    <div class="shape">
-                        <div class="shape-text">
-                            top
-                        </div>
-                    </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
-                    </div>
-                    <div class="offer-content">
-                        <h3 class="lead">
-                            A warning offer
-                        </h3>
-                        <p>
-                            And a little description.
-                            <br> and so one
-                        </p>
-                    </div>
-                </div>
-
-                <div class="offer offer-radius offer-danger">
-                    <div class="shape">
-                        <div class="shape-text">
-                            top
-                        </div>
-                    </div>
-                    <div>
-                        <img src="images/EmailIcon.png" class="imgoffer">
-                    </div>
-                    <div class="offer-content">
-                        <h3 class="lead">
-                            A danger-radius
-                        </h3>
-                        <p>
-                            And a little description.
-                            <br> and so one
-                        </p>
-                    </div>
-                </div>
-
-
+                <?php }?>
             </div>
         </div>
     </div>
@@ -286,14 +164,6 @@ $blogs = $db->query("SELECT * FROM blog");
 </div>
 
 
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="js/jquery.eislideshow.js"></script>
-<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
     $(function() {
         $('#ei-slider').eislideshow({
@@ -302,8 +172,25 @@ $blogs = $db->query("SELECT * FROM blog");
             slideshow_interval	: 3000,
             titlesFactor		: 0
         });
-        $('.selectpicker').selectpicker();
+        // $('.selectpicker').selectpicker();
     });
+</script>
+<script type="text/javascript">
+$(function(){
+    $('.selectpicker').change(function(e){
+        var val = $(this).val();
+        if(val==0){
+            window.location.replace("index.php");
+            return;
+        }
+        window.location.replace("index.php?tag="+$(this).val());
+    });
+
+    $(".imgoffer img").resizecrop({
+        width: 100,
+        height: 100
+    });
+});
 </script>
 </body>
 </html>

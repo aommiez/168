@@ -10,6 +10,7 @@ $module = $module[0];
 <html>
 <head>
     <title>admin - 198North.com</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -37,8 +38,10 @@ $module = $module[0];
     <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
     <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js"></script>
     <link type="text/css" rel="stylesheet" href="fancybox/source/jquery.fancybox.css" />
+    <link type="text/css" rel="stylesheet" href="tagsintput/jquery.tagsinput.css" />
 
     <script type="text/javascript" src="tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript" src="tagsintput/jquery.tagsinput.min.js"></script>
 </head>
 <body>
 
