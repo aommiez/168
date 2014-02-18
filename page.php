@@ -149,7 +149,6 @@ else {
 
 </div>
 
-
 <script type="text/javascript">
     $(function() {
         $('#ei-slider').eislideshow({

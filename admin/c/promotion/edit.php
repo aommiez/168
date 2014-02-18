@@ -76,7 +76,7 @@ $param = $item;
         <div class="form-group">
             <label class="col-md-4 control-label" for="author">description</label>
             <div class="col-md-4">
-                <textarea id="description" name="description" class="form-control"><?php echo $param["description"];?></textarea>
+                <input id="description" name="description" type="text" placeholder="" class="form-control input-md" required="" value="<?php echo $param["description"];?>">
             </div>
         </div>
 

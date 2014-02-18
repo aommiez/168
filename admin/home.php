@@ -53,6 +53,7 @@ $module = $module[0];
                     <li <?php if($module=="blog") echo 'class="active"';?>><a href="home.php?page=blog">Blog</a></li>
                     <li <?php if($module=="promotion") echo 'class="active"';?>><a href="home.php?page=promotion">Promotion</a></li>
                     <li <?php if($module=="gallery") echo 'class="active"';?>><a href="home.php?page=gallery">Gallery</a></li>
+                    <li <?php if($module=="editor") echo 'class="active"';?>><a href="home.php?page=editor">Editor</a></li>
                     <li class="nav-divider"></li>
                     <li><a href="s/AdminLogOut.php"><i class="glyphicon glyphicon-off"></i> Sign Out</a></li>
                 </ul>

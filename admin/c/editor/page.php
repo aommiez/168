@@ -1,76 +1,41 @@
 <?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: Nuiz
+ * Date: 18/2/2557
+ * Time: 10:51 น.
+ * To change this template use File | Settings | File Templates.
+ */
+
 $db = new DB();
+$type = "menu";
+if(isset($_GET["type"]))
+    $type = $_GET["type"];
+
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-
-    //unique tags
-    $tags = array_unique(explode(",", $_POST["tags"]));
-    $_POST["tags"] = implode(",", $tags);
-
-    $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
-    $query = "insert into promotion(title,description,content,created_at,updated_at,tags) VALUES(:title,:description,:content,:created_at,:updated_at,:tags)";
-
-    $bp = array_merge($_POST, $ar1);
-    $rs = $db->query($query, $bp);
-    $pro_id = $db->lastInsertId();
-
-    if(isset($_FILES["picture"]) && file_exists($_FILES["picture"]["tmp_name"])){
-        $name = $_FILES["file"]["name"];
-        $ext = end(explode(".", $name));
-
-        $pic_name = uniqid("pic_").".".$ext;
-        move_uploaded_file($_FILES["picture"]["tmp_name"], "../picture/".$pic_name);
-
-        $ar1["picture"] = $pic_name;
-        $query = "update promotion set picture=:picture WHERE id=:id";
-        $db->query($query, array("picture"=> $pic_name, "id"=> $pro_id));
-    }
-
-    if(isset($_POST["tags"])){
-        $sql = "insert into tags(name,pro_id) VALUES(:name,:pro_id)";
-        foreach($tags as $key => $value){
-            $rs = $db->query($sql, array("name"=> $value, "pro_id"=> $pro_id));
-        }
-    }
+    $rs = $db->query("update {$type} set content=:content WHERE id=:id", array(
+        "content"=> $_POST["content"],
+        "id"=> $_GET["id"]
+    ));
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
-        header("location: home.php?page=promotion");
+        header("location: home.php?page=editor");
         exit();
     }
 }
+
+if($type=="menu"){
+    $item = $db->row("select * from menu WHERE id=:id", array("id"=> $_GET["id"]));
+}
+else {
+    $item = $db->row("select * from menu_lv2 WHERE id=:id", array("id"=> $_GET["id"]));
+}
+
 ?>
-<form class="form-horizontal" method="post" enctype="multipart/form-data">
+<form class="form-horizontal" method="post">
     <fieldset>
-
-        <!-- Form Name -->
-        <legend>Create blog</legend>
-
-        <!-- File Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="filebutton">picture</label>
-            <div class="col-md-4">
-                <input id="picture" name="picture" class="input-file" type="file">
-            </div>
-        </div>
-
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="title">title</label>
-            <div class="col-md-4">
-                <input id="title" name="title" type="text" placeholder="" class="form-control input-md" required="">
-
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="author">description</label>
-            <div class="col-md-4">
-                <input id="description" name="description" type="text" placeholder="" class="form-control input-md" required="" value="<?php echo $param["description"];?>">
-            </div>
-        </div>
-
+        <legend><?php echo $item["name"];?></legend>
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="content">content</label>
@@ -78,15 +43,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 Upload Picture <img src="http://www.k0w.co/cms/assets/admin/images/icons/media.png"  style="cursor:pointer" class="picupload"
 
                                     href="uploads.php?fn=text_edit" /><br />
-                <textarea class="form-control" id="content" name="content"></textarea>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="author">tags</label>
-            <div class="col-md-4">
-                <input id="tags" name="tags" type="text" placeholder="" class="form-control input-md" required="">
+                <textarea class="form-control" id="content" name="content"><?php echo $item["content"];?></textarea>
             </div>
         </div>
 
@@ -162,7 +119,5 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             'transitionOut'		: 'none',
             'type'				: 'iframe'
         });
-
-        $('#tags').tagsInput();
     });
 </script>

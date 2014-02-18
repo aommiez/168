@@ -11,6 +11,22 @@ else {
     $promotions = $db->query("SELECT * FROM promotion WHERE tags LIKE '%".$_GET["tag"]."%'");
 }
 $tags = $db->query("SELECT distinct(name) as name FROM tags");
+
+
+
+$menu = $db->query("select * from menu");
+$menu_lv2 = $db->query("select * from menu_lv2");
+foreach($menu as $key => $value){
+    $submenu = array();
+    foreach($menu_lv2 as $key2 => $value2){
+        if($value["id"]==$value2["menu_id"]){
+            $submenu[] = $value2;
+        }
+        if(count($submenu)>0){
+            $menu[$key]["submenu"] = $submenu;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,31 +65,21 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
     <div><img src="images/logobanner.png"/> </div>
     <div id="topMenu" class="navbar-collapse">
         <ul class="nav navbar-nav pull-right">
-            <li><a href="">Home</a></li>
-            <li class="dropdown active">
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu2</a>
+            <li><a href="index.php">หน้าแรก</a></li>
+            <?php foreach($menu as $key=> $value){?>
+            <li class="dropdown">
+                <?php if(isset($value["submenu"]) && is_array($value["submenu"])){?>
+                <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $value["name"];?></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu2 - 1</a></li>
-                    <li><a href="#">Menu2 - 2</a></li>
-                    <li><a href="#">Menu2 - 3</a></li>
+                    <?php foreach($value["submenu"] as $key2=> $value2){?>
+                    <li><a href="page.php?type=menu_lv2&id=<?php echo $value2["id"];?>"><?php echo $value2["name"];?></a></li>
+                    <?php }?>
                 </ul>
+                <?php }else{?>
+                <a href="page.php?type=menu&id=<?php echo $value["id"];?>"><?php echo $value["name"];?></a>
+                <?php }?>
             </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu3</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu4</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
+            <?php }?>
         </ul>
         <div class="clearfix"></div>
     </div>
