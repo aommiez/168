@@ -167,7 +167,7 @@ foreach($menu as $key => $value){
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <label for="inputPassword3" class="col-sm-2 control-label">Message</label>
                             <div class="col-sm-10">
                                 <textarea name="message" class="form-control"></textarea>
                             </div>
