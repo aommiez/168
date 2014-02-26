@@ -53,13 +53,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <input type="file" name="pic<?php echo $i;?>">
             </div>
             <div class="form-group">
-                <label>title</label>
+                <label>Url</label>
                 <input type="text" name="img[<?php echo $i;?>][title]" class="form-control" value="<?php echo $read["img"][$i]["title"];?>">
             </div>
+            <!--
             <div class="form-group">
                 <label>description</label>
-                <input type="text" name="img[<?php echo $i;?>][description]" class="form-control" value="<?php echo $read["img"][$i]["description"];?>">
+                <input type="text" name="img[<?php echo $i;?>][description]" class="form-control" value="<?php //echo $read["img"][$i]["description"];?>">
             </div>
+            -->
         </fieldset>
         <?php }?>
         <div><button type="submit" class="btn btn-primary">submit</button></div>

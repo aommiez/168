@@ -53,6 +53,7 @@ $module = $module[0];
         <div class="col-sm-2">
             <nav class="nav-sidebar">
                 <ul class="nav">
+                    <li><a href="/index.php">Home Website</a></li>
                     <li <?php if($module=="blog") echo 'class="active"';?>><a href="home.php?page=blog">Blog</a></li>
                     <li <?php if($module=="promotion") echo 'class="active"';?>><a href="home.php?page=promotion">Promotion</a></li>
                     <li <?php if($module=="gallery") echo 'class="active"';?>><a href="home.php?page=gallery">Gallery</a></li>

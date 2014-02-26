@@ -98,10 +98,12 @@ foreach($menu as $key => $value){
             <ul class="ei-slider-large">
                 <?php foreach($gallery["img"] as $key=> $value){?>
                 <li>
+                    <a href="<?php echo $value["title"];?>" target="_blank">
                     <img src="gallery/<?php echo $value["img"];?>" alt="<?php echo $key;?>"/>
+                    </a>
                     <div class="ei-title">
-                        <h2><?php echo $value["title"];?></h2>
-                        <h3><?php echo $value["description"];?></h3>
+                        <!--<h2><?php //echo $value["title"];?></h2>-->
+                        <!--<h3><?php// echo $value["description"];?></h3>-->
                     </div>
                 </li>
                 <?php }?>
@@ -118,14 +120,15 @@ foreach($menu as $key => $value){
     <div>
         <div id="leftMenu">
         <div class="leftBlock">
+            <div style="font-size: 22px;color: #6E6E6E;border-bottom: 1px solid #ddd;">Contact</div>
             <ul>
                 <li><img src="images/MapPin.png" />39 sadssad sads ad asd adsa</li>
                 <li><img src="images/TelIcon.png" />087-123-5678</li>
                 <li><img src="images/EmailIcon.png" />info@abc.com</li>
-                <li><img src="images/WebSiteIcon.png" />www.google.co.th</li>
             </ul>
         </div>
         <div class="leftBlock" style="margin-top: 20px;margin-bottom: 20px;">
+            <div style="font-size: 22px;color: #6E6E6E;border-color: #999999;border-bottom: 1px solid #ddd;">Blogs</div>
             <ul>
                 <?php foreach($blogs as $key => $value){?>
                 <li><a href="blog.php?id=<?php echo $value["id"];?>"><?php echo $value["title"];?></a></li>
