@@ -70,7 +70,7 @@ foreach($menu as $key => $value){
 
     <script type="text/javascript" src="js/jquery.resizecrop-1.0.3.min.js"></script>
 </head>
-<body>
+<body style="background-color: #f1f1f1;">
 <div class="container">
     <div><img src="images/logobanner.png"/> </div>
     <div id="topMenu" class="navbar-collapse">

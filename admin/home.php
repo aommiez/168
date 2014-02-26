@@ -46,7 +46,7 @@ $module = $module[0];
     <link rel="stylesheet" type="text/css" href="bootstrap-colorselector.css" />
     <script src="bootstrap-colorselector.js"></script>
 </head>
-<body>
+<body style="background-color: #f1f1f1;">
 
 <div class="container">
     <div class="row">

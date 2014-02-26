@@ -1,6 +1,6 @@
 ;<?php return; ?>
 [SQL]
 host = localhost
-user = papangping_168
-password = 111111
-dbname = papangping_168
+user = root
+password =
+dbname = 168travel
