@@ -3,4 +3,4 @@
 host = localhost
 user = root
 password = 111111
-dbname = 168travel
+dbname = papangping_168

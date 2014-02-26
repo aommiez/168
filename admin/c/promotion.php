@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $db = new DB();
-$items = $db->query("SELECT * FROM promotion");
+$items = $db->query("SELECT * FROM promotion order by updated_at desc");
 ?>
 <div>
     <h4>Promotion <a href="home.php?page=promotion/add"><i class="glyphicon glyphicon-plus-sign"></i></a></h4>
@@ -15,6 +15,7 @@ $items = $db->query("SELECT * FROM promotion");
 <table class="table">
     <tr>
         <th></th>
+        <th>color</th>
         <th>title</th>
         <th>description</th>
         <th>tags</th>
@@ -26,6 +27,7 @@ $items = $db->query("SELECT * FROM promotion");
     <?php foreach($items as $key => $value){?>
         <tr>
             <td><img src="../picture/<?php echo empty($value["picture"])? "default.jpg": $value["picture"];?>" style="max-height: 100px; max-width: 100px;"></td>
+            <td><div style="width: 20px; height: 20px; background-color: <?php echo $value["color"];?>"></div></td>
             <td><?php echo $value["title"];?></td>
             <td><?php echo $value["description"];?></td>
             <td><?php echo $value["tags"];?></td>

@@ -4,13 +4,39 @@ include_once("class/INI.class.php");
 $gallery = INI::read("admin/gallery.ini");
 $db = new DB();
 $blogs = $db->query("SELECT * FROM blog");
+
+$page = 0;
+$limit = 5;
+if(isset($_GET["page"])){
+    $page = $_GET["page"];
+}
+$offset = $page*$limit;
+
 if(empty($_GET['tag'])){
-    $promotions = $db->query("SELECT * FROM promotion");
+    $pcount = $db->row("SELECT COUNT(*) as c FROM promotion");
+    $pcount = $pcount["c"]/$limit;
+    $promotions = $db->query("SELECT * FROM promotion order by updated_at desc limit {$offset},{$limit}");
 }
 else {
-    $promotions = $db->query("SELECT * FROM promotion WHERE tags LIKE '%".$_GET["tag"]."%'");
+    $pcount = $db->row("SELECT COUNT(*) as c FROM promotion WHERE tags LIKE '%".$_GET["tag"]."%'");
+    $pcount = $pcount["c"]/$limit;
+    $promotions = $db->query("SELECT * FROM promotion WHERE tags LIKE '%".$_GET["tag"]."%' order by updated_at desc limit {$offset},{$limit}");
 }
 $tags = $db->query("SELECT distinct(name) as name FROM tags");
+
+$menu = $db->query("select * from menu");
+$menu_lv2 = $db->query("select * from menu_lv2");
+foreach($menu as $key => $value){
+    $submenu = array();
+    foreach($menu_lv2 as $key2 => $value2){
+        if($value["id"]==$value2["menu_id"]){
+            $submenu[] = $value2;
+        }
+        if(count($submenu)>0){
+            $menu[$key]["submenu"] = $submenu;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +48,7 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/168travel.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link href="js/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/bootstrap-select.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Playfair+Display:400italic' rel='stylesheet' type='text/css' />
     <noscript>
         <link rel="stylesheet" type="text/css" href="css/noscript.css" />
@@ -49,31 +75,21 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
     <div><img src="images/logobanner.png"/> </div>
     <div id="topMenu" class="navbar-collapse">
         <ul class="nav navbar-nav pull-right">
-            <li><a href="">Home</a></li>
-            <li class="dropdown active">
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu2</a>
+            <li><a href="index.php">หน้าแรก</a></li>
+            <?php foreach($menu as $key=> $value){?>
+            <li class="dropdown">
+                <?php if(isset($value["submenu"]) && is_array($value["submenu"])){?>
+                <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $value["name"];?></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu2 - 1</a></li>
-                    <li><a href="#">Menu2 - 2</a></li>
-                    <li><a href="#">Menu2 - 3</a></li>
+                    <?php foreach($value["submenu"] as $key2=> $value2){?>
+                    <li><a href="page.php?type=menu_lv2&id=<?php echo $value2["id"];?>"><?php echo $value2["name"];?></a></li>
+                    <?php }?>
                 </ul>
+                <?php }else{?>
+                <a href="page.php?type=menu&id=<?php echo $value["id"];?>"><?php echo $value["name"];?></a>
+                <?php }?>
             </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu3</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu4</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
+            <?php }?>
         </ul>
         <div class="clearfix"></div>
     </div>
@@ -120,7 +136,7 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
         <div id="mainContent" >
             <div class="rightBlockTop">
                 <select class="selectpicker">
-                    <option value="0">all</option>
+                    <option value="0" <?php if(!isset($_GET["tag"])) echo "selected";?>>all</option>
                     <?php foreach($tags as $key => $value){?>
                     <option value="<?php echo $value["name"];?>" <?php if(@$_GET["tag"]==$value["name"]) echo "selected";?>><?php echo $value["name"];?></option>
                     <?php }?>
@@ -133,9 +149,9 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
                     }
                     ?>
                 <div class="offer offer-default">
-                    <div class="shape">
+                    <div class="shape" style="border-color: rgba(255,255,255,0) <?php echo $value["color"];?> rgba(255,255,255,0) rgba(255,255,255,0);">
                         <div class="shape-text">
-                            top
+
                         </div>
                     </div>
                     <div class="imgoffer">
@@ -151,6 +167,21 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
                     </div>
                 </div>
                 <?php }?>
+
+                <ul class="pagination">
+                    <?php for($i=0; $i<$pcount; $i++){?>
+                    <li <?php if($page==$i) echo "class='active'";?>>
+                        <a href="index.php?<?php
+                        $bq = array("page"=> $i);
+                        if(isset($_GET["tags"])){
+                            $bq["tabs"]=$_GET["tags"];
+                        }
+
+                        echo http_build_query($bq);?>"
+
+                        ><?php echo $i+1;?></a></li>
+                    <?php }?>
+                </ul>
             </div>
         </div>
     </div>
@@ -177,6 +208,7 @@ $tags = $db->query("SELECT distinct(name) as name FROM tags");
 </script>
 <script type="text/javascript">
 $(function(){
+    $('.selectpicker').selectpicker();
     $('.selectpicker').change(function(e){
         var val = $(this).val();
         if(val==0){
