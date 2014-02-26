@@ -58,6 +58,12 @@ foreach($menu as $key => $value){
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <script src="js/jquery.eventCalendar.js" type="text/javascript"></script>
+    <!-- Core CSS File. The CSS code needed to make eventCalendar works -->
+    <link rel="stylesheet" href="css/eventCalendar.css">
+
+    <!-- Theme CSS file: it makes eventCalendar nicer -->
+    <link rel="stylesheet" href="css/eventCalendar_theme_responsive.css">
 </head>
 <body style="background-color: #f1f1f1;">
 <div class="container">
@@ -123,6 +129,9 @@ foreach($menu as $key => $value){
                         <li><a href="blog.php?id=<?php echo $value["id"];?>"><?php echo $value["title"];?></a></li>
                     <?php }?>
                 </ul>
+            </div>
+            <div class="leftBlockCar" style="margin-top: 20px;margin-bottom: 20px;">
+                <div id="eventCalendarDefault"></div>
             </div>
         </div>
         <div id="mainContent" style="padding-top: 20px;" >
@@ -194,7 +203,13 @@ foreach($menu as $key => $value){
             <p class="muted credit">Made by 168NorthTravel 2014 </p>
         </div>
     </div>
-
+<div style="position: fixed;right: 0px;bottom: 0px;height: 558px;width: 300px;z-index: 999;background-color: #ffffff" id="fbBox">
+    <a href="#closeFB" id="closeFB"style="float: right"><img src="http://icons.iconarchive.com/icons/rafiqul-hassan/blogger/512/Close-icon.png" style="width: 32px;height: 32px;"> &nbsp;</a>
+    <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2F198NorthTravel&amp;width&amp;height=558&amp;colorscheme=light&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=false&amp;appId=1438704643024175" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:558px;" allowTransparency="true"></iframe>
+</div>
+<div style="position: fixed;right: 10px;top: 0px;" id="fbIcon">
+    <a href="#openFB" id="openFB"> <img src="http://giolombardi.com/images/stories/Facebook-Icon.png" style="height: 48px;width: 48px;"></a>
+</div>
 </div>
 
 
@@ -208,6 +223,18 @@ foreach($menu as $key => $value){
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 <script type="text/javascript">
     $(function() {
+        $("#eventCalendarDefault").eventCalendar({
+            eventsjson: 'json/events.json.php' // link to events json
+        });
+        $("#fbBox").hide();
+        $("#openFB").click(function(){
+            $("#fbBox").slideDown();
+            $("#openFB").hide();
+        });
+        $("#closeFB").click(function(){
+            $("#fbBox").slideUp();
+            $("#openFB").show();
+        });
         $('#ei-slider').eislideshow({
             animation			: 'center',
             autoplay			: true,
