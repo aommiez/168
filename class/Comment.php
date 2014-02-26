@@ -63,10 +63,4 @@ class Comment {
         ));
         return $rs;
     }
-
-    public function deleteComment($id){
-        $db = new DB();
-        $rs = $db->query("delete from ".$this->getTable()." where id=:id", array("id"=> $id));
-        return $rs;
-    }
 }
