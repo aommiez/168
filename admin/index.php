@@ -24,9 +24,10 @@ if (!empty($_SESSION['login'])) {
     <![endif]-->
     <style>
         body {
+
             padding-top: 40px;
             padding-bottom: 40px;
-            background-color: #eee;
+            background-color: #f1f1f1;
         }
 
         .form-signin {

@@ -4,7 +4,8 @@ a {
 }
 
 .body {
-    background-image:url("../images/bg.png");
+    /*background-image:url("../images/bg.png");*/
+    background-color: #f1f1f1;
 }
 
 .container {
@@ -22,7 +23,7 @@ a {
 }
 #topMenu ul li {
     list-style: none;
-    font-size: 22px;
+    font-size: 16px;
     font-family: 'Open Sans Condensed', sans-serif;
     text-transform: uppercase;
 }
