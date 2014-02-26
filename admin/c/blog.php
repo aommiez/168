@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $db = new DB();
-$blogs = $db->query("SELECT * FROM blog");
+$blogs = $db->query("SELECT * FROM blog order by updated_at desc");
 ?>
 <div>
     <h4>Blog <a href="home.php?page=blog/add"><i class="glyphicon glyphicon-plus-sign"></i></a></h4>

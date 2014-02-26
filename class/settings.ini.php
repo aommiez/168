@@ -2,5 +2,5 @@
 [SQL]
 host = localhost
 user = root
-password =
+password = 111111
 dbname = 168travel

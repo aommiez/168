@@ -1,8 +1,41 @@
 <?php
+session_start();
 include_once("class/Db.class.php");
+include_once("class/INI.class.php");
+include_once("class/Comment.php");
+
+$commentCTL = new Comment("promotion");
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+    $rs = $commentCTL->insertComment($_GET["id"], $_POST["name"], $_POST["message"]);
+    if($rs){
+        //header("refresh:2; url=../index.php");
+        header("refresh:0;");
+    }
+    else {
+        header("refresh:0;");
+    }
+    exit();
+}
+$comments = $commentCTL->getComments($_GET["id"]);
+
+$gallery = INI::read("admin/gallery.ini");
 $db = new DB();
 $blogs = $db->query("SELECT * FROM blog");
 $item = $db->row("SELECT * FROM promotion WHERE id=:id", array("id"=> $_GET["id"]));
+
+$menu = $db->query("select * from menu");
+$menu_lv2 = $db->query("select * from menu_lv2");
+foreach($menu as $key => $value){
+    $submenu = array();
+    foreach($menu_lv2 as $key2 => $value2){
+        if($value["id"]==$value2["menu_id"]){
+            $submenu[] = $value2;
+        }
+        if(count($submenu)>0){
+            $menu[$key]["submenu"] = $submenu;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,98 +64,42 @@ $item = $db->row("SELECT * FROM promotion WHERE id=:id", array("id"=> $_GET["id"
     <div><img src="images/logobanner.png"/> </div>
     <div id="topMenu" class="navbar-collapse">
         <ul class="nav navbar-nav pull-right">
-            <li><a href="index.php">Home</a></li>
-            <li class="dropdown active">
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu2</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu2 - 1</a></li>
-                    <li><a href="#">Menu2 - 2</a></li>
-                    <li><a href="#">Menu2 - 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu3</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" data-toggle="dropdown">Menu4</a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Menu3 - 1</a></li>
-                    <li><a href="#">Menu4 - 2</a></li>
-                    <li><a href="#">Menu5 - 3</a></li>
-                </ul>
-            </li>
+            <li><a href="index.php">หน้าแรก</a></li>
+            <?php foreach($menu as $key=> $value){?>
+                <li class="dropdown">
+                    <?php if(isset($value["submenu"]) && is_array($value["submenu"])){?>
+                        <a class="dropdown-toggle" data-toggle="dropdown"><?php echo $value["name"];?></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <?php foreach($value["submenu"] as $key2=> $value2){?>
+                                <li><a href="page.php?type=menu_lv2&id=<?php echo $value2["id"];?>"><?php echo $value2["name"];?></a></li>
+                            <?php }?>
+                        </ul>
+                    <?php }else{?>
+                        <a href="page.php?type=menu&id=<?php echo $value["id"];?>"><?php echo $value["name"];?></a>
+                    <?php }?>
+                </li>
+            <?php }?>
         </ul>
         <div class="clearfix"></div>
     </div>
     <div>
         <div id="ei-slider" class="ei-slider">
             <ul class="ei-slider-large">
-                <li>
-                    <img src="images/large/01.png" alt="image06"/>
-                    <div class="ei-title">
-                        <h2>Passionate</h2>
-                        <h3>Seeker</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/02.png" alt="image01" />
-                    <div class="ei-title">
-                        <h2>Creative</h2>
-                        <h3>Duet</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/03.png" alt="image02" />
-                    <div class="ei-title">
-                        <h2>Friendly</h2>
-                        <h3>Devil</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/04.png" alt="image03"/>
-                    <div class="ei-title">
-                        <h2>Tranquilent</h2>
-                        <h3>Compatriot</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="images/large/05.png" alt="image04"/>
-                    <div class="ei-title">
-                        <h2>Insecure</h2>
-                        <h3>Hussler</h3>
-                    </div>
-                </li>
-
+                <?php foreach($gallery["img"] as $key=> $value){?>
+                    <li>
+                        <img src="gallery/<?php echo $value["img"];?>" alt="<?php echo $key;?>"/>
+                        <div class="ei-title">
+                            <h2><?php echo $value["title"];?></h2>
+                            <h3><?php echo $value["description"];?></h3>
+                        </div>
+                    </li>
+                <?php }?>
             </ul><!-- ei-slider-large -->
             <ul class="ei-slider-thumbs">
                 <li class="ei-slider-element">Current</li>
-
-                <li><a href="#">Slide 6</a><img src="images/thumbs/m01.png" alt="thumb06" /></li>
-                <li><a href="#">Slide 1</a><img src="images/thumbs/m02.png" alt="thumb01" /></li>
-                <li><a href="#">Slide 2</a><img src="images/thumbs/m03.png" alt="thumb02" /></li>
-                <li><a href="#">Slide 3</a><img src="images/thumbs/m04.png" alt="thumb03" /></li>
-                <li><a href="#">Slide 4</a><img src="images/thumbs/m05.png" alt="thumb04" /></li>
-                <li><a href="#">Slide 3</a><img src="images/thumbs/m04.png" alt="thumb03" /></li>
-                <li><a href="#">Slide 4</a><img src="images/thumbs/m05.png" alt="thumb04" /></li>
+                <?php foreach($gallery["img"] as $key=> $value){?>
+                    <li><a href="#"><?php echo $value["title"];?></a><img src="gallery/<?php echo $value["img"];?>" alt="<?php echo $key;?>" /></li>
+                <?php }?>
 
             </ul><!-- ei-slider-thumbs -->
         </div><!-- ei-slider -->
@@ -146,6 +123,10 @@ $item = $db->row("SELECT * FROM promotion WHERE id=:id", array("id"=> $_GET["id"
             </div>
         </div>
         <div id="mainContent" style="padding-top: 20px;" >
+            <ol class="breadcrumb">
+                <li><a href="index.php">Home</a></li>
+                <li class="active">promotion - <?php echo $item["title"];?></li>
+            </ol>
             <h1><?php echo $item["title"];?></h1>
             <p style="color: #666666;">แก้ไขล่าสุด <small><?php echo date("d-m-Y H:i",strtotime($item["updated_at"]));?></small></p>
             <div style="padding-top: 20px;">
@@ -153,6 +134,55 @@ $item = $db->row("SELECT * FROM promotion WHERE id=:id", array("id"=> $_GET["id"
                 echo $item["content"];
                 ?>
             </div>
+
+            <hr>
+            <div class="comments-block">
+                <?php foreach($comments as $key=> $value){?>
+                    <div class="comment-item">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">
+                                <strong><?php echo $value["name"];?></strong>
+                            </label>
+                            <div class="col-sm-10">
+                                <?php echo nl2br($value["message"]);?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <?php if(!empty($_SESSION["login"])){?>
+                        <div class="text-right">
+                            <a class="del-comment" href="delete_comment.php?type=promotion&id=<?php echo $value["id"];?>">delete</a>
+                        </div>
+                        <?php }?>
+                    </div>
+                    <hr>
+                <?php }?>
+                <div class="comment-form" role="form">
+                    <h3>แสดงความคิดเห็น</h3>
+                    <form method="post" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" id="inputEmail3" placeholder="Name">
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <textarea name="message" class="form-control"></textarea>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -182,6 +212,20 @@ $item = $db->row("SELECT * FROM promotion WHERE id=:id", array("id"=> $_GET["id"
             titlesFactor		: 0
         });
         $('.selectpicker').selectpicker();
+
+        $('.del-comment').click(function(e){
+            e.preventDefault();
+            if(!window.confirm("are you shure?")){
+                return;
+            }
+            var el = $(this).closest(".comment-item");
+            var href = $(this).attr("href");
+            $.get(href, function(data){
+                el.fadeOut(function(){
+                    el.remove();
+                });
+            }, "json");
+        });
     });
 </script>
 </body>

@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 ?>
 <div>
     <h1>Gallery Setting</h1>
-    <form method="post" enctype="multipart/form-data" style="width: 400px; padding-bottom: 20px;">
+    <form method="post" enctype="multipart/form-data" style="width: 900px; padding-bottom: 20px;">
         <?php for($i=0; $i<7; $i++){?>
         <fieldset>
             <legend>Image <?php echo $i+1;?></legend>
@@ -65,3 +65,19 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         <div><button type="submit" class="btn btn-primary">submit</button></div>
     </form>
 </div>
+<style type="text/css">
+fieldset {
+    padding: 10px 20px 20px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    margin-right: 20px;
+    display: inline-block;
+    width: 400px;
+}
+legend {
+    display: inline-block;
+    width: auto;
+    border: none;
+    padding: 0 10px;
+}
+</style>

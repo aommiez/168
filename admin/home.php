@@ -42,6 +42,9 @@ $module = $module[0];
 
     <script type="text/javascript" src="tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript" src="tagsintput/jquery.tagsinput.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap-colorselector.css" />
+    <script src="bootstrap-colorselector.js"></script>
 </head>
 <body>
 
