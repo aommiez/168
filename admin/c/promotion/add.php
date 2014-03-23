@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $_POST["tags"] = implode(",", $tags);
 
     $ar1 = array("created_at"=> date("Y-m-d H:i:s"), "updated_at"=> date("Y-m-d H:i:s"));
-    $query = "insert into promotion(title,description,content,created_at,updated_at,tags,color) VALUES(:title,:description,:content,:created_at,:updated_at,:tags,:color)";
+    $query = "insert into promotion(title,description,content,created_at,updated_at,tags,color,is_main) VALUES(:title,:description,:content,:created_at,:updated_at,:tags,:color,:is_main)";
 
     $bp = array_merge($_POST, $ar1);
     $rs = $db->query($query, $bp);
@@ -62,6 +62,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             <div class="col-md-4">
                 <input id="title" name="title" type="text" placeholder="" class="form-control input-md" required="">
 
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">type</label>
+            <div class="col-md-4">
+                <select name="is_main" class="form-control">
+                    <option value="0">normal</option>
+                    <option value="1">main</option>
+                </select>
             </div>
         </div>
 
@@ -132,6 +143,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <script type="text/javascript">
     $(function() {
         tinyMCE.init({
+
+            width: 550,
+            height: 350,
 
             // General options
             mode : "textareas",

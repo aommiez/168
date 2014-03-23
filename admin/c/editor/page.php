@@ -13,14 +13,15 @@ if(isset($_GET["type"]))
     $type = $_GET["type"];
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $rs = $db->query("update {$type} set content=:content WHERE id=:id", array(
+    $rs = $db->query("update {$type} set content=:content,name=:name WHERE id=:id", array(
         "content"=> $_POST["content"],
+        "name"=> $_POST["name"],
         "id"=> $_GET["id"]
     ));
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
-        header("location: home.php?page=editor");
+        header("location: home.php?page=editor/menu_lv2&menu_id=".$_POST["menu_id"]);
         exit();
     }
 }
@@ -34,8 +35,16 @@ else {
 
 ?>
 <form class="form-horizontal" method="post">
+    <input type="hidden" name="menu_id" value="<?php echo $item["menu_id"];?>">
     <fieldset>
         <legend><?php echo $item["name"];?></legend>
+        <!-- input -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">name</label>
+            <div class="col-md-4">
+                <input class="form-control" id="name" name="name" value="<?php echo $item["name"];?>">
+            </div>
+        </div>
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="content">content</label>

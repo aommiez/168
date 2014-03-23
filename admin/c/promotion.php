@@ -17,9 +17,8 @@ $items = $db->query("SELECT * FROM promotion order by updated_at desc");
         <th></th>
         <th>color</th>
         <th>title</th>
-        <th>description</th>
         <th>tags</th>
-        <th>add date</th>
+        <th>type</th>
         <th>update date</th>
         <th></th>
         <th></th>
@@ -29,9 +28,8 @@ $items = $db->query("SELECT * FROM promotion order by updated_at desc");
             <td><img src="../picture/<?php echo empty($value["picture"])? "default.jpg": $value["picture"];?>" style="max-height: 100px; max-width: 100px;"></td>
             <td><div style="width: 20px; height: 20px; background-color: <?php echo $value["color"];?>"></div></td>
             <td><?php echo $value["title"];?></td>
-            <td><?php echo $value["description"];?></td>
             <td><?php echo $value["tags"];?></td>
-            <td><?php echo $value["created_at"];?></td>
+            <td><?php echo $value["is_main"]==1? "main": "normal";?></td>
             <td><?php echo $value["updated_at"];?></td>
             <td><a href="home.php?page=promotion/edit&id=<?php echo $value["id"];?>">edit</a></td>
             <td><a class="delete-btn" href="home.php?page=promotion/delete&id=<?php echo $value["id"];?>">delete</a></td>

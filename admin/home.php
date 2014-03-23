@@ -31,7 +31,19 @@ $module = $module[0];
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/bootstrap.min.js"></script>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+
     <script type="text/javascript" src="../js/jquery.eislideshow.js"></script>
     <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
 
@@ -53,11 +65,12 @@ $module = $module[0];
         <div class="col-sm-2">
             <nav class="nav-sidebar">
                 <ul class="nav">
-                    <li><a href="/index.php">Home Website</a></li>
+                    <li><a href="../">Home Website</a></li>
                     <li <?php if($module=="blog") echo 'class="active"';?>><a href="home.php?page=blog">Blog</a></li>
                     <li <?php if($module=="promotion") echo 'class="active"';?>><a href="home.php?page=promotion">Promotion</a></li>
                     <li <?php if($module=="gallery") echo 'class="active"';?>><a href="home.php?page=gallery">Gallery</a></li>
                     <li <?php if($module=="editor") echo 'class="active"';?>><a href="home.php?page=editor">Editor</a></li>
+                    <li <?php if($module=="setting") echo 'class="active"';?>><a href="home.php?page=setting">Setting</a></li>
                     <li class="nav-divider"></li>
                     <li><a href="s/AdminLogOut.php"><i class="glyphicon glyphicon-off"></i> Sign Out</a></li>
                 </ul>

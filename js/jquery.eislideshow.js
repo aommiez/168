@@ -342,13 +342,15 @@
 			
 			// click the thumbs
 			this.$thumbs.on( 'click.eislideshow', function( event ) {
-				
+
+                /*
 				if( _self.options.autoplay ) {
 				
 					clearTimeout( _self.slideshow );
 					_self.options.autoplay	= false;
 				
 				}
+				*/
 				
 				var $thumb	= $(this),
 					idx		= $thumb.index() - 1; // exclude sliding div

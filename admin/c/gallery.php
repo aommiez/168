@@ -16,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $dir = "../gallery/";
     $defaultImg = "default.png";
 
-    for($i=0; $i<7; $i++){
+    for($i=0; $i<8; $i++){
         if(isset($_FILES["pic{$i}"]["tmp_name"]) && file_exists($_FILES["pic{$i}"]["tmp_name"])){
             $ex = explode(".", $_FILES["pic{$i}"]["name"]);
             $ex = array_pop($ex);
@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 <div>
     <h1>Gallery Setting</h1>
     <form method="post" enctype="multipart/form-data" style="width: 900px; padding-bottom: 20px;">
-        <?php for($i=0; $i<7; $i++){?>
+        <?php for($i=0; $i<8; $i++){?>
         <fieldset>
             <legend>Image <?php echo $i+1;?></legend>
             <div class="form-group">

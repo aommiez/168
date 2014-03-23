@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $_POST["tags"] = implode(",", $tags);
 
     $ar1 = array("updated_at"=> date("Y-m-d H:i:s"), "id"=> $_GET["id"]);
-    $query = "update promotion SET title=:title,description=:description,content=:content,updated_at=:updated_at,tags=:tags,color=:color WHERE id=:id";
+    $query = "update promotion SET title=:title,description=:description,content=:content,updated_at=:updated_at,tags=:tags,color=:color,is_main=:is_main WHERE id=:id";
 
     $bp = array_merge($_POST, $ar1);
     $rs = $db->query($query, $bp);
@@ -52,7 +52,7 @@ $param = $item;
     <fieldset>
 
         <!-- Form Name -->
-        <legend>Create promotion</legend>
+        <legend>Edit promotion</legend>
 
         <!-- File Button -->
         <div class="form-group">
@@ -64,6 +64,16 @@ $param = $item;
             </div>
         </div>
 
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="title">type</label>
+            <div class="col-md-4">
+                <select name="is_main" class="form-control">
+                    <option value="0" <?php if($param["is_main"]==0) echo "selected";?>>normal</option>
+                    <option value="1" <?php if($param["is_main"]==1) echo "selected";?>>main</option>
+                </select>
+            </div>
+        </div>
 
         <!-- Text input-->
         <div class="form-group">
@@ -141,6 +151,9 @@ $param = $item;
 <script type="text/javascript">
     $(function() {
         tinyMCE.init({
+
+            width: 550,
+            height: 350,
 
             // General options
             mode : "textareas",

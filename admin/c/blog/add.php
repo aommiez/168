@@ -69,6 +69,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $(function() {
         tinyMCE.init({
 
+            width: 550,
+            height: 350,
+
             // General options
             mode : "textareas",
             theme : "advanced",
