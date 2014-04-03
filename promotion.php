@@ -16,6 +16,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     exit();
 }
+$commentSetting = INI::read("admin/c/setting/comment.ini");
+$commentSetting = $commentSetting['comment'];
+
 $comments = $commentCTL->getComments($_GET["id"]);
 
 $gallery = INI::read("admin/gallery.ini");
@@ -62,6 +65,7 @@ foreach($menu as $key => $value){
                 ?>
             </div>
 
+            <?php if($commentSetting['display']=='show'){?>
             <hr>
             <div class="comments-block">
                 <?php foreach($comments as $key=> $value){?>
@@ -109,6 +113,7 @@ foreach($menu as $key => $value){
                     </form>
                 </div>
             </div>
+            <?php }?>
         </div>
         </div>
     </div>

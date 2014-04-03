@@ -24,12 +24,16 @@ foreach($menu as $key => $value){
 <table class="table">
     <tr>
         <th class="text-center">menu</th>
+        <th></th>
         <th class="text-center">display</th>
         <th></th>
     </tr>
     <?php foreach($menu as $key=> $value){?>
     <tr>
         <td><a href="home.php?page=editor/menu_lv2&menu_id=<?php echo $value["id"];?>"><?php echo $value["name"];?></a></td>
+        <td>
+            <a href="home.php?page=editor/head_editor&id=<?php echo $value["id"];?>">แก้ไข</a>
+        </td>
         <td class="text-center"><?php echo $value["display"]==1? "show": "hide";?></td>
         <td>
             <?php if($value["display"]==0){?><a href="home.php?page=editor/change_display&type=menu&id=<?php echo $value["id"];?>&display=1"><i class="glyphicon glyphicon-eye-open"></i></a><?php }

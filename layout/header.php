@@ -26,8 +26,12 @@ $main_pro = $db->query("select * from promotion where is_main=1 order by updated
     .dropdown-menu {
         background-color: <?php echo @$menu_style["menu_color"];?>;
     }
+    .dropdown-menu>li>a {
+        color: <?php echo @$menu_style["font_color"];?>;
+    }
     .dropdown-menu>li>a:hover {
         background-color: <?php echo @$menu_style["highlight_menu_color"];?>;
+        color: <?php echo @$menu_style["highlight_font_color"];?>;
     }
 </style>
 <?php

@@ -1,0 +1,6 @@
+menu font
+resize picture colour
+left block picture
+hide comment
+rename & font top menu
+calendar remove detail

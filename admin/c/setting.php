@@ -14,4 +14,5 @@
     <a class="list-group-item" href="home.php?page=setting/menu_style">menu style</a>
     <a class="list-group-item" href="home.php?page=setting/promotion_style">promotion style</a>
     <a class="list-group-item" href="home.php?page=setting/footer">footer</a>
+    <a class="list-group-item" href="home.php?page=setting/comment">comment</a>
 </div>

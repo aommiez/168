@@ -36,6 +36,15 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $img = $name;
         $write['page_style']['background_picture'] = $img;
     }
+    if(isset($_FILES["left_block_picture"]) && file_exists($_FILES["left_block_picture"]["tmp_name"])){
+        $ex = explode(".", $_FILES["left_block_picture"]["name"]);
+        $ex = array_pop($ex);
+
+        $name = uniqid("gal_").".".$ex;
+        move_uploaded_file($_FILES["left_block_picture"]["tmp_name"], $dir.$name);
+        $img = $name;
+        $write['page_style']['left_block_picture'] = $img;
+    }
 
     INI::write($path, $write);
 }
@@ -59,6 +68,18 @@ $read = @$read["page_style"];
                     <?php }?>
                 </div>
                 <input name="header_picture" class="input-file" type="file">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">left block picture</label>
+            <div class="col-md-4">
+                <div>
+                    <?php if(@$read["left_block_picture"]){?>
+                        <img src="<?php echo "../picture/".$read["left_block_picture"];?>" style="max-width: 100px; max-height: 100px;">
+                    <?php }?>
+                </div>
+                <input name="left_block_picture" class="input-file" type="file">
             </div>
             <div class="clearfix"></div>
         </div>
@@ -87,6 +108,14 @@ $read = @$read["page_style"];
                     <option value="124" data-color="#FFFFFF">white</option>
                     <option value="125" data-color="#C0C0C0">silver</option>
                 </select>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">background type</label>
+            <div class="col-md-4">
+                <input type="radio" name="left_block_type" value="picture" <?php if(@$read["left_block_type"]=="picture") echo "checked";?>> picture<br />
+                <input type="radio" name="left_block_type" value="color" <?php if(@$read["left_block_type"]=="color") echo "checked";?>> color
             </div>
             <div class="clearfix"></div>
         </div>

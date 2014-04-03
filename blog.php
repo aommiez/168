@@ -19,6 +19,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 $comments = $commentCTL->getComments($_GET["id"]);
 
 $gallery = INI::read("admin/gallery.ini");
+
 $db = new DB();
 $blogs = $db->query("SELECT * FROM blog");
 $item = $db->row("SELECT * FROM blog WHERE id=:id", array("id"=> $_GET["id"]));
@@ -63,6 +64,8 @@ foreach($menu as $key => $value){
             ?>
         </div>
         <hr>
+
+        <?php if(false){?>
         <div class="comments-block">
             <?php foreach($comments as $key=> $value){?>
             <div class="comment-item">
@@ -84,6 +87,7 @@ foreach($menu as $key => $value){
             <hr>
             <?php }?>
         </div>
+        <?php }?>
     </div>
 </div>
 <div class="clearfix"></div>

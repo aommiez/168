@@ -15,7 +15,16 @@ $blogs = $db->query("SELECT * FROM blog");
 
 <style type="text/css">
 .leftBlock, .leftBlockCar, .eventCalendar-wrap {
+    <?php if(@$page_style["left_block_type"]=="color"){?>
     background-color: <?php echo @$page_style["left_block_color"];?>;
+    <?php }else if(@$page_style["left_block_type"]=="picture"){?>
+    background-image: url('picture/<?php echo @$page_style["left_block_picture"];?>');
+    background-position: center;
+    <?php }?>
+}
+
+.eventsCalendar-list-wrap {
+    display: none;
 }
 </style>
 <div class="leftBlock">
