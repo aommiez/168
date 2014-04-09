@@ -11,6 +11,8 @@ $page_style = @$page_style["page_style"];
 <link href="css/168travel.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Playfair+Display:400italic' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Denk+One|Seymour+One|Gilda+Display|Sonsie+One|Quintessential|Coda+Caption:800|Tienne|Elsie|Playfair+Display+SC|Ceviche+One|Sofadi+One|Cinzel|Englebert|Special+Elite|Share+Tech+Mono|Lemon|Audiowide|Iceland|Nova+Square|Hammersmith+One' rel='stylesheet' type='text/css'>
+<link href='font/font.css' rel='stylesheet' type='text/css'>
 <noscript>
     <link rel="stylesheet" type="text/css" href="css/noscript.css" />
 </noscript>

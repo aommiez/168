@@ -137,6 +137,44 @@ $read = @$read["menu_style"];
             </div>
             <div class="clearfix"></div>
         </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">font family</label>
+            <div class="col-md-4">
+                <div id="font-display-example" style="font-size: 16px;">example</div>
+                <select id="font_family" name="font_family" placeholder="" class="input-md">
+                    <option value="Helvetica">Helvetica</option>
+                    <option value="Audiowide">Audiowide</option>
+                    <option value="Ceviche One">Ceviche One</option>
+                    <option value="Cinzel">Cinzel</option>
+                    <option value="Coda Caption">Coda Caption</option>
+                    <option value="Denk One">Denk One</option>
+                    <option value="Elsie">Elsie</option>
+                    <option value="Englebert">Englebert</option>
+                    <option value="Gilda Display">Gilda Display</option>
+                    <option value="Hammersmith One">Hammersmith One</option>
+                    <option value="Iceland">Iceland</option>
+                    <option value="Lemon">Lemon</option>
+                    <option value="Nova Square">Nova Square</option>
+                    <option value="Playfair Display SC">Playfair Display SC</option>
+                    <option value="Quintessential">Quintessential</option>
+                    <option value="Seymour One">Seymour One</option>
+                    <option value="Share Tech Mono">Share Tech Mono</option>
+                    <option value="Sofadi One">Sofadi One</option>
+                    <option value="Sonsie One">Sonsie One</option>
+                    <option value="Special Elite">Special Elite</option>
+                    <option value="Tienne">Tienne</option>
+                    <option value="AngsanuUPC">AngsanuUPC</option>
+                    <option value="Arial">Arial</option>
+                    <option value="CordiaUPC">CordiaUPC</option>
+                    <option value="Garamond">Garamond</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Trebuchet">Trebuchet</option>
+                    <option value="Impact">Impact</option>
+                    <option value="Lucida">Lucida</option>
+                </select>
+            </div>
+            <div class="clearfix"></div>
+        </div>
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for=""></label>
@@ -175,5 +213,12 @@ $(function(){
         }
     });
     $("#colorselector_5").colorselector("setColor", "<?php echo @$read["highlight_font_color"];?>");
+
+
+    $('#font_family').change(function(e){
+        $('#font-display-example').css('font-family', $(this).val());
+    });
+    $('#font_family').val("<?php echo @$read["font_family"];?>");
+    $('#font_family').change();
 });
 </script>

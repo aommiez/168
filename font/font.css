@@ -1,0 +1,32 @@
+@font-face {
+    font-family: "AngsanuUPC";
+    src: url("AngsanaUPC/angsau.ttf");
+}
+@font-face {
+    font-family: "Arial";
+    src: url("Arial/arial.ttf");
+}
+@font-face {
+    font-family: "CordiaUPC";
+    src: url("CordiaUPC/cordiau.ttf");
+}
+@font-face {
+    font-family: "Garamond";
+    src: url("Garamond/GARA.TTF");
+}
+@font-face {
+    font-family: "Times New Roman";
+    src: url("Times%20New%20Roman/times.ttf");
+}
+@font-face {
+    font-family: "Trebuchet";
+    src: url("Trebuchet/trebuc.ttf");
+}
+@font-face {
+    font-family: "Impact";
+    src: url("impact.ttf");
+}
+@font-face {
+    font-family: "Lucida";
+    src: url("Lucida.ttf");
+}

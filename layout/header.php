@@ -21,8 +21,14 @@ foreach($menu as $key => $value){
     }
 }
 $main_pro = $db->query("select * from promotion where is_main=1 order by updated_at desc limit 3");
+
+$promotion_style = INI::read("admin/c/setting/promotion_style.ini");
+$promotion_style = @$promotion_style["promotion_style"];
 ?>
 <style type="text/css">
+    #topMenu {
+        font-family: "<?php echo @$menu_style["font_family"];?>";
+    }
     .dropdown-menu {
         background-color: <?php echo @$menu_style["menu_color"];?>;
     }
@@ -107,14 +113,23 @@ if (!empty($_SESSION['login'])) {?>
             if(empty($value["picture"])){
                 $value["picture"] = "default.jpg";
             }?>
-        <div class="offer offer-default pull-left" style="width: 295px; height: 170px; padding: 10px; margin: 10px; position: relative;">
+        <div class="offer offer-default pull-left" style="width: 295px; height: 103px; padding: 10px; margin: 10px; position: relative;">
             <div class="shape" style="border-color: rgba(255,255,255,0) <?php echo $value["color"];?> rgba(255,255,255,0) rgba(255,255,255,0); position: absolute; right: 0; top: 0; z-index: 1;">
                 <div class="shape-text">
 
                 </div>
             </div>
-            <div class="imgoffer-1">
+            <div class="imgoffer-1" style="float: left;
+margin-right: 10px;">
                 <a href="promotion.php?id=<?php echo $value["id"];?>"><img src="picture/<?php echo $value["picture"];?>"></a>
+            </div>
+            <div class="offer-content" style="margin-top: -17px;">
+                <h3 class="lead" style="margin-bottom: 4px;">
+                    <a href="promotion.php?id=<?php echo $value["id"];?>" style="color: <?php echo $promotion_style["title_color"];?>"><?php echo $value["title"];?></a>
+                </h3>
+                <p>
+                    <?php echo (strlen($value["description"])>50)? substr($value["description"],0,50)."...": $value["description"];?>
+                </p>
             </div>
         </div>
         <?php }?>
@@ -128,7 +143,6 @@ if (!empty($_SESSION['login'])) {?>
             e.preventDefault();
             e.stopPropagation();
         });
-
     });
 </script>
 
@@ -146,8 +160,8 @@ if (!empty($_SESSION['login'])) {?>
             $(this).click();
         });
         $(".imgoffer-1 img").resizecrop({
-            width: 150,
-            height: 150
+            width: 80,
+            height: 80
         });
     });
 </script>

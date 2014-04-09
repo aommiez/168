@@ -1,5 +1,8 @@
 <?php
 header('Content-type: text/json');
+echo json_encode(array());
+return;
+
 echo '[';
 $separator = "";
 $days = 16;
