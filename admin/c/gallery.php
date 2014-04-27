@@ -52,10 +52,12 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <label>picture</label>
                 <input type="file" name="pic<?php echo $i;?>">
             </div>
+            <!--
             <div class="form-group">
                 <label>Url</label>
                 <input type="text" name="img[<?php echo $i;?>][title]" class="form-control" value="<?php echo $read["img"][$i]["title"];?>">
             </div>
+            -->
             <!--
             <div class="form-group">
                 <label>description</label>

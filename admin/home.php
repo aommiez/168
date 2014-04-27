@@ -1,6 +1,22 @@
 <?php
 ob_start();
 session_start();
+
+/*
+ * magic ",' to normal
+ */
+if (get_magic_quotes_gpc()) {
+    function stripslashes_gpc(&$value)
+    {
+        $value = stripslashes($value);
+    }
+    array_walk_recursive($_GET, 'stripslashes_gpc');
+    array_walk_recursive($_POST, 'stripslashes_gpc');
+    array_walk_recursive($_COOKIE, 'stripslashes_gpc');
+    array_walk_recursive($_REQUEST, 'stripslashes_gpc');
+}
+
+
 require("../class/Db.class.php");
 $page = isset($_GET["page"])? $_GET["page"]: "blog";
 $module = explode("/", $page);

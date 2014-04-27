@@ -6,6 +6,7 @@
  * Time: 10:16 น.
  * To change this template use File | Settings | File Templates.
  */
+
 $db = new DB();
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $ar1 = array("updated_at"=> date("Y-m-d H:i:s"), "id"=> $_GET["id"]);

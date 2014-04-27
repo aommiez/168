@@ -57,7 +57,7 @@ if (!empty($_SESSION['login'])) {?>
 </div>
 <div id="topMenu" class="navbar-collapse">
     <ul class="nav navbar-nav pull-right">
-        <li><a href="index.php">หน้าแรก</a></li>
+        <li><a href="index.php">HOME</a></li>
         <?php foreach($menu as $key=> $value){ if($value['display']==0) continue; ?>
             <li class="dropdown">
                 <?php if(isset($value["submenu"]) && is_array($value["submenu"])){?>
