@@ -115,6 +115,8 @@ $param = $item;
                     <option value="24" data-color="#FF8C00">darkorange</option>
                     <option value="78" data-color="#C71585">mediumvioletred</option>
                     <option value="123" data-color="#000000">black</option>
+                    <option value="124" data-color="#FFFFFF">white</option>
+                    <option value="125" data-color="#C0C0C0">silver</option>
                 </select>
             </div>
         </div>

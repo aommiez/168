@@ -64,4 +64,14 @@ $page_style = @$page_style["page_style"];
     .container {
         width: 960px;
     }
+
+    #footer {
+    <?php if(@$page_style["footer_type"]=="color"){?>
+        background-color: <?php echo @$page_style["footer_color"];?>;
+    <?php }else if(@$page_style["footer_type"]=="picture"){?>
+        background-image: url('picture/<?php echo @$page_style["footer_picture"];?>');\
+    background-position: center;
+    <?php }?>
+    }
+
 </style>

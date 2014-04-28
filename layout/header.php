@@ -28,7 +28,17 @@ $promotion_style = @$promotion_style["promotion_style"];
 <style type="text/css">
     #topMenu {
         font-family: "<?php echo @$menu_style["font_family"];?>";
+        background: <?php echo @$menu_style["tab_color"];?>;
     }
+
+    #topMenu .main-menu-color {
+        color: <?php echo @$menu_style["tab_font_color"];?>;
+    }
+    #topMenu .main-menu-color:hover {
+        color: <?php echo @$menu_style["tab_highlight_font_color"];?>;
+        background: <?php echo @$menu_style["tab_highlight_color"];?>;
+    }
+
     .dropdown-menu {
         background-color: <?php echo @$menu_style["menu_color"];?>;
     }
@@ -37,7 +47,7 @@ $promotion_style = @$promotion_style["promotion_style"];
     }
     .dropdown-menu>li>a:hover {
         background-color: <?php echo @$menu_style["highlight_menu_color"];?>;
-        color: <?php echo @$menu_style["highlight_font_color"];?>;
+        color: <?php echo @$menu_style["tab_highlight_color"];?>;
     }
 </style>
 <?php
@@ -57,11 +67,11 @@ if (!empty($_SESSION['login'])) {?>
 </div>
 <div id="topMenu" class="navbar-collapse">
     <ul class="nav navbar-nav pull-right">
-        <li><a href="index.php">HOME</a></li>
+        <li><a href="index.php" class="main-menu-color">HOME</a></li>
         <?php foreach($menu as $key=> $value){ if($value['display']==0) continue; ?>
             <li class="dropdown">
                 <?php if(isset($value["submenu"]) && is_array($value["submenu"])){?>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $value["name"];?></a>
+                    <a class="dropdown-toggle main-menu-color" data-toggle="dropdown" href="#"><?php echo $value["name"];?></a>
                     <ul class="dropdown-menu" role="menu">
                         <?php foreach($value["submenu"] as $key2=> $value2){ if($value2['display']==0) continue; ?>
                             <li><a href="page.php?type=menu_lv2&id=<?php echo $value2["id"];?>"><?php echo $value2["name"];?></a></li>
@@ -113,7 +123,7 @@ if (!empty($_SESSION['login'])) {?>
             if(empty($value["picture"])){
                 $value["picture"] = "default.jpg";
             }?>
-        <div class="offer offer-default pull-left" style="width: 295px; height: 103px; padding: 10px; margin: 10px; position: relative;">
+        <div class="offer offer-default pull-left" style="width: 295px; height: 144px; padding: 10px; margin: 10px; position: relative;">
             <div class="shape" style="border-color: rgba(255,255,255,0) <?php echo $value["color"];?> rgba(255,255,255,0) rgba(255,255,255,0); position: absolute; right: 0; top: 0; z-index: 1;">
                 <div class="shape-text">
 

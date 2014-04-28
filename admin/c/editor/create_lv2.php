@@ -2,57 +2,45 @@
 /**
  * Created by JetBrains PhpStorm.
  * User: Nuiz
- * Date: 18/2/2557
- * Time: 10:51 น.
+ * Date: 23/3/2557
+ * Time: 8:19 น.
  * To change this template use File | Settings | File Templates.
  */
 
 $db = new DB();
-
-$type = "menu";
-if(isset($_GET["type"]))
-    $type = $_GET["type"];
-
+$item = $db->row("select * from menu WHERE id={$_GET['menu_id']}");
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $rs = $db->query("update {$type} set content=:content,name=:name WHERE id=:id", array(
-        "content"=> $_POST["content"],
-        "name"=> $_POST["name"],
-        "id"=> $_GET["id"]
-    ));
+    $bp = $_POST;
+    $bp['menu_id'] = $_GET["menu_id"];
+
+    $query = "insert into menu_lv2(name,display,menu_id,content) VALUES(:name,1,:menu_id,:content)";
+    $rs = $db->query($query, $bp);
 
     if($rs){
         //header("refresh:2; url=home.php?page=blog");
-        header("location: home.php?page=editor/menu_lv2&menu_id=".$_POST["menu_id"]);
+        header("location: home.php?page=editor/menu_lv2&menu_id=".$_GET["menu_id"]);
         exit();
     }
-}
-
-if($type=="menu"){
-    $item = $db->row("select * from menu WHERE id=:id", array("id"=> $_GET["id"]));
-}
-else {
-    $item = $db->row("select * from menu_lv2 WHERE id=:id", array("id"=> $_GET["id"]));
-}
-$item1 = $db->row("select * from menu WHERE id={$item['menu_id']}");
-
-?>
-
+}?>
 <ol class="breadcrumb">
     <li><a href="home.php?page=editor">Editor</a></li>
-    <li><a href="home.php?page=editor/menu_lv2&menu_id=<?php echo $item1["menu_id"];?>"><?php echo $item1["name"];?></a></li>
-    <li class="active"><?php echo $item['name'];?></li>
+    <li><a href="home.php?page=editor/menu_lv2&menu_id=<?php echo $_GET["menu_id"];?>"><?php echo $item["name"];?></a></li>
+    <li class="active">Create Menu</li>
 </ol>
 <form class="form-horizontal" method="post">
-    <input type="hidden" name="menu_id" value="<?php echo $item["menu_id"];?>">
     <fieldset>
-        <legend><?php echo $item["name"];?></legend>
-        <!-- input -->
+
+        <!-- Form Name -->
+        <legend>Create Menu</legend>
+
+        <!-- Input Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">name</label>
             <div class="col-md-4">
-                <input class="form-control" id="name" name="name" value="<?php echo $item["name"];?>">
+                <input id="name" name="name" class="form-control" type="text">
             </div>
         </div>
+
         <!-- Textarea -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="content">content</label>

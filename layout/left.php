@@ -28,25 +28,25 @@ $blogs = $db->query("SELECT * FROM blog");
 }
 </style>
 <div class="leftBlock">
-    <div style="font-size: 22px;color: #6E6E6E;border-bottom: 1px solid #ddd;">Contact</div>
+    <div style="font-size: 22px;color: #6E6E6E;border-bottom: 1px solid #ddd;">Contact Us</div>
     <ul>
-        <li><img src="images/MapPin.png" />39 sadssad sads ad asd adsa</li>
-        <li><img src="images/TelIcon.png" />087-123-5678</li>
+        <li><img src="images/MapPin.png" />198 M.3 Sansainoi Sansai Chiangmai Thailand 50210</li>
+        <li><img src="images/TelIcon.png" />083 470 8575</li>
         <li style="position: relative; cursor: pointer;">
-            <span class="triggerMailBlock"><img src="images/EmailIcon.png" />info@abc.com</span>
+            <span class="triggerMailBlock"><img src="images/EmailIcon.png" />info@198northtravel.com</span>
             <div class="mailBlock" style="padding: 20px; position: absolute; background: white; top: 100%; left: 0; z-index: 100; border: 1px solid #bdc6ba; display: none;">
                 <form class="mailForm">
                     <span class="glyphicon glyphicon-remove-circle close" style="position: absolute; top: -10px; right: -10px; cursor: pointer;"></span>
-                    <h3>ติดต่อเรา</h3>
+                    <h3>Contact Us</h3>
                     <hr>
                     <div class="form-group">
-                        <input name="name" type="text" placeholder="ชื่อผู้ส่ง" class="form-control" required="">
+                        <input name="name" type="text" placeholder="Your Name" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <input name="email" type="text" placeholder="email ผู้ส่ง" class="form-control" required="">
+                        <input name="email" type="text" placeholder="Your Email" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <textarea name="message" placeholder="ข้อความ" class="form-control" required="" style="width: 240px; height: 160px;"></textarea>
+                        <textarea name="message" placeholder="Your Query" class="form-control" required="" style="width: 240px; height: 160px;"></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
@@ -55,7 +55,7 @@ $blogs = $db->query("SELECT * FROM blog");
                 </form>
             </div>
         </li>
-        <li><img src="images/facebook-circle-512.png" /><a href="http://www.facebook.com/168destinationstravelandtours">168destinationstravelandtours</a></li>
+        <li><img src="images/facebook-circle-512.png" /><a href="https://www.facebook.com/198North">198 North Travel</a></li>
     </ul>
 </div>
 <div class="leftBlock" style="margin-top: 20px;margin-bottom: 20px;">

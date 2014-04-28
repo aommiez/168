@@ -58,7 +58,7 @@ foreach($menu as $key => $value){
                 <li class="active">promotion - <?php echo $item["title"];?></li>
             </ol>
             <h1><?php echo $item["title"];?></h1>
-            <p style="color: #666666;">แก้ไขล่าสุด <small><?php echo date("d-m-Y H:i",strtotime($item["updated_at"]));?></small></p>
+            <p style="color: #666666;">Update on <small><?php echo date("d-m-Y",strtotime($item["updated_at"]));?></small></p>
             <div style="padding-top: 20px;">
                 <?php
                 echo $item["content"];
